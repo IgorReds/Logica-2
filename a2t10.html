@@ -1,0 +1,38 @@
+<canvas width = '600' height = '400'> </canvas>
+
+<script>
+	
+var tela = document.querySelector('canvas');
+var pincel = tela.getContext('2d');
+
+function escreveTexto(texto, x, y){
+	pincel.font = '20px Georgia';
+	pincel.fillStyle = 'black';
+	pincel.fillText(texto, x, y);
+}
+
+function desenhaBarras(x, y, serie, cor, ano) {	
+	var altura = 0;
+	for(i = 0; i < serie.length; i++){
+		pincel.fillStyle = cor[i];
+		pincel.fillRect(x, y + altura, 50, serie[i]);
+		pincel.fillStyle = 'black'
+		pincel.strokeRect(x, y + altura, 50, serie[i]);
+		altura = altura + serie[i];
+	}
+	escreveTexto(ano, x + 3, y + 120);
+}
+
+var serie2015 = [50, 25, 20, 5];
+var serie2016 = [65, 20, 13, 2];
+var cores = ['blue', 'green', 'yellow', 'red'];
+
+desenhaBarras(50, 50, serie2015, cores, '2015');
+desenhaBarras(150, 50, serie2016, cores, '2016');
+
+//Começa como canvas sendo declarado e abrindo o mundo javascript, declarando neste as variáveis tela e pincel.
+//Após isso declaro a função escreveTexto que, pasmem, escreve um texto e o coloca numa determinada coordenada (x, y)
+//Logo em seguida declaro a função desenhaBarras. Essa foi complicada e tentarei explica-la para mim mesmo. Comecei ela com um laço for que tem como variável i = 0 que se repetirá enquanto i for menor que o a quantidade de elementos da variável série, parâmetro da função que é, obrigatoriamente, um array. A cor selecionada será a primeira do array cor, outro parâmetro da função, ou seja, cor[i] (ou cor[0], na prática), que preencherá um retângulo que começara em x e y, outros dois parâmetros da função, e se estenderá para 50 pixels para a direita e serie[i] (ou serie[0], nesse momento) pixels para baixo, e as mesmas medidas servirão para a borda do retângulo que terá a cor preta. Aí veio um problema: o processo teria que se repetir e a altura dos retângulos teria que ser atualizada. Para tal, decidi declarar, dentro da função, porém fora do laço for, uma variável chamada altura com valor inicial 0; a posição y do retângulo (e de sua borda, consequentemente) se alteraria para a soma do y parâmetro com a altura. Assim, o retângulo seguinte sempre iria começar em baixo do anterior. Para finalizar, antes de terminar o laço for a variável altura deveria ser atualizada para a soma da própria mais o valor serie[i] e executei a função escreveTexto de modo que exibiria a variável texto (o último parâmetro da função) em baixo e centralizado na barra.
+//Declarei os arrays var serie2015 = [50, 25, 20, 5]; var serie2016 = [65, 20, 13, 2]; var cores = ['blue', 'green', 'yellow', 'red'];, executei desenhaBarras(50, 50, serie2015, cores, '2015'); e desenhaBarras(150, 50, serie2016, cores, '2016'); e deu certo!
+
+</script>
